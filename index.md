@@ -51,7 +51,7 @@ SSL merupakan Protocol keamanan yang digunakan untuk mengenkrip si data seperti 
 Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan pengguna untuk mengirim pesan, file dan tools. Slack memiliki 2 metode, yaitu Direct Message (pesan langsung dari satu user ke user lain) dan Channel Group. Dan juga Slack dapat di integrasikan dengan aplikasi atau tools lain juga yang memungkinkan melakukan otomatisasi untuk notifikasi dari suatu aplikasi.
 
 # Langkah Implementasi
-# 1. Konfigurasi SSH ke semua Node
+## 1. Konfigurasi SSH ke semua Node
   * Ubah Hostname pada Node agar memudahkan dalam mengidentifikasi Node yang ada.
     ```
     node-master   :~$ sudo hostnamectl set-hostname pod-master
@@ -77,7 +77,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ~$ ssh-copy-id user@pod-worker02
     ~$ ssh-copy-id user@pod-harbor
     ```
-# 2. Install Docker pada Node-Harbor Untuk Harbor Registry
+## 2. Install Docker pada Node-Harbor Untuk Harbor Registry
   * Menambahkan repository dari Docker.
     ```
     node-harbor:~$ sudo apt-get update
@@ -98,14 +98,39 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     node-harbor:~$ sudo chmod 666 /var/run/docker.sock
     node-harbor:~$ docker version
     ```
-# 3. Konfigurasi SSH ke semua Node
-# 4. Konfigurasi SSH ke semua Node
-# 5. Konfigurasi SSH ke semua Node
-# 6. Konfigurasi SSH ke semua Node
-# 7. Konfigurasi SSH ke semua Node
-# 8. Konfigurasi SSH ke semua Node
-# 9. Konfigurasi SSH ke semua Node
-# 10. Konfigurasi SSH ke semua Node
+## 3. Create SSL Certificate untuk Harbor
+  * Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory “/etc/ssl/harbor/”.
+    ```
+    ~$ echo "subjectAltName=IP:10.18.18.40" > harbor.txt
+    ```
+  * Membuat Certificate dan Key untuk koneksi https pada Harbor, yang nantinya di simpan di directory “/etc/ssl/harbor/”.
+    ```
+    ~$ sudo openssl genrsa -out harbor.key 4096
+
+    ~$ sudo openssl req -sha512 -new \
+         -subj "/C=IN/ST=jateng/L=kendal/O=test/OU=Personal/CN=test-harbor.com" \
+         -key harbor.key \
+         -out harbor.csr
+
+    ~$ sudo openssl x509 -req -sha512 -days 3650 \
+         -extfile harbor.ext \
+         -in harbor.csr \
+         -out harbor.crt
+
+    ```
+## 4. Install Harbor
+  * Download Source Code untuk harbor, lalu unzip file source code harbor yang sudah di download.
+    ```
+    
+    ```
+  * Lalu edit pada file ”harbor.yaml”. sesuaikan seperti di contoh berikut.
+  * Lalu jalankan script “install.sh” dengan parameter “--with-trivy” untuk secara otomatis integrasi Harbor dengan Trivy. Lalu verifikasi container komponen dari harbor nya berjalan dengan baik tanpa error.
+## 5. Konfigurasi SSH ke semua Node
+## 6. Konfigurasi SSH ke semua Node
+## 7. Konfigurasi SSH ke semua Node
+## 8. Konfigurasi SSH ke semua Node
+## 9. Konfigurasi SSH ke semua Node
+## 10. Konfigurasi SSH ke semua Node
 
 
 ## Header 2
