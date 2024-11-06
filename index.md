@@ -52,31 +52,31 @@ layout: default
 
 # Langkah Implementasi
 ## 1. Konfigurasi SSH ke semua Node
-        * Ubah Hostname pada Node agar memudahkan dalam mengidentifikasi Node yang ada.
-        ```
-        node-master   :~$ sudo hostnamectl set-hostname pod-master
-        node-worker01 :~$ sudo hostnamectl set-hostname pod-worker01
-        node-worker02 :~$ sudo hostnamectl set-hostname pod-worker02
-        node-harbor   :~$ sudo hostnamectl set-hostname pod-harbor
-        ```
-        * Menambahkan IP dari Node dan Hostname semua Node ke “/etc/hosts” agar dapat di akses dengan menggunakan Hostname yang sudah di konfigurasi.
-        ```
-        ~$ sudo nano /etc/hosts
+  * Ubah Hostname pada Node agar memudahkan dalam mengidentifikasi Node yang ada.
+    ```
+    node-master   :~$ sudo hostnamectl set-hostname pod-master
+    node-worker01 :~$ sudo hostnamectl set-hostname pod-worker01
+    node-worker02 :~$ sudo hostnamectl set-hostname pod-worker02
+    node-harbor   :~$ sudo hostnamectl set-hostname pod-harbor
+    ```
+  * Menambahkan IP dari Node dan Hostname semua Node ke “/etc/hosts” agar dapat di akses dengan menggunakan Hostname yang sudah di konfigurasi.
+    ```
+    ~$ sudo nano /etc/hosts
 
-        10.18.18.10 pod-master
-        10.18.18.20 pod-worker01
-        10.18.18.30 pod-worker02
-        10.18.18.40 pod-harbor
-        ```
-        * Buat Public dan Private key, lalu copy public key dari setiap Node ke dalam Node yang lain. Agar dapat melakukan SSH tanpa password.
-        ```
-        ~$ ssh-keygen
+    10.18.18.10 pod-master
+    10.18.18.20 pod-worker01
+    10.18.18.30 pod-worker02
+    10.18.18.40 pod-harbor
+    ```
+  * Buat Public dan Private key, lalu copy public key dari setiap Node ke dalam Node yang lain. Agar dapat melakukan SSH tanpa password.
+     ```
+     ~$ ssh-keygen
 
-        ~$ ssh-copy-id user@pod-master
-        ~$ ssh-copy-id user@pod-worker01
-        ~$ ssh-copy-id user@pod-worker02
-        ~$ ssh-copy-id user@pod-harbor
-        ```
+     ~$ ssh-copy-id user@pod-master
+     ~$ ssh-copy-id user@pod-worker01
+     ~$ ssh-copy-id user@pod-worker02
+     ~$ ssh-copy-id user@pod-harbor
+     ```
 ## 2. Install Docker pada Node-Harbor Untuk Harbor Registry
    * Menambahkan repository dari Docker.
     ```
