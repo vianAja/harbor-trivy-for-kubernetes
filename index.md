@@ -52,14 +52,14 @@ layout: default
 
 # Langkah Implementasi
 ## 1. Konfigurasi SSH ke semua Node
-    * Ubah Hostname pada Node agar memudahkan dalam mengidentifikasi Node yang ada.
+        * Ubah Hostname pada Node agar memudahkan dalam mengidentifikasi Node yang ada.
         ```
         node-master   :~$ sudo hostnamectl set-hostname pod-master
         node-worker01 :~$ sudo hostnamectl set-hostname pod-worker01
         node-worker02 :~$ sudo hostnamectl set-hostname pod-worker02
         node-harbor   :~$ sudo hostnamectl set-hostname pod-harbor
         ```
-      * Menambahkan IP dari Node dan Hostname semua Node ke “/etc/hosts” agar dapat di akses dengan menggunakan Hostname yang sudah di konfigurasi.
+        * Menambahkan IP dari Node dan Hostname semua Node ke “/etc/hosts” agar dapat di akses dengan menggunakan Hostname yang sudah di konfigurasi.
         ```
         ~$ sudo nano /etc/hosts
 
@@ -68,7 +68,7 @@ layout: default
         10.18.18.30 pod-worker02
         10.18.18.40 pod-harbor
         ```
-      * Buat Public dan Private key, lalu copy public key dari setiap Node ke dalam Node yang lain. Agar dapat melakukan SSH tanpa password.
+        * Buat Public dan Private key, lalu copy public key dari setiap Node ke dalam Node yang lain. Agar dapat melakukan SSH tanpa password.
         ```
         ~$ ssh-keygen
 
