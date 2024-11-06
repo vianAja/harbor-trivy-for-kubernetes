@@ -363,8 +363,8 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ```
   * Lalu jalankan perintah ini :
       a)	Install Library yang dibutuhkan Python. 
-      b)	Copy file service ke “/etc/system/system/”.
-      c)	Copy file “main.py” ke “/usr/local/bin/”, menyesuaikan dari konfigurasi yang ada di file service nya.
+      b)	Copy file service ke **_“/etc/system/system/”_**.
+      c)	Copy file **_“main.py”_** ke **_“/usr/local/bin/”_**, menyesuaikan dari konfigurasi yang ada di file service nya.
     ```
     ~$ sudo pip3 install -r requirement.txt
     ~$ sudo cp python-slack.service /etc/systemd/system/
@@ -377,6 +377,14 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ~$ sudo systemctl start python-slack.service
     ~$ sudo systemctl status python-slack.service
     ```
+# Hasil
+## Tanpa menggunakan Program Pyhon
+![Branching](./assets/images/hasil_slack.1.png)
+
+## Menggunakan Program Python
+![Branching](./assets/images/hasil_slack.2.png)
+
+# Referensi
 
 
 ## Header 2
