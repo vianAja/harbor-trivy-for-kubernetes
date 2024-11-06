@@ -269,7 +269,7 @@ layout: default
     ```
 ## 9. Konfigurasi Notifikasi Otomatis dari Hasil Scan Harbor ke Slack
   * Login ke Website [Slack](https://slack.com/), Buat akun baru jika belum ada.
-  * 
+  * ![Branching](./assets/images/9.1.png)
 ## 10. Konfigurasi SSH ke semua Node
 
 
