@@ -269,7 +269,66 @@ layout: default
     ```
 ## 9. Konfigurasi Notifikasi Otomatis dari Hasil Scan Harbor ke Slack
   * Login ke Website [Slack](https://slack.com/), Buat akun baru jika belum ada.
-  * ![Branching](./assets/images/9.1.png)
+    ![Branching](./assets/images/9.1.png)
+    ![Branching](./assets/images/9.2.png)
+    
+  * Lalu isi nama untuk Company atau Team yang sesuai, contoh “Harbor Vuln Scan”.
+    ![Branching](./assets/images/9.3.png)
+
+  * Nama untuk user sendiri, contoh “Najwan”.
+    ![Branching](./assets/images/9.4.png)
+
+  * Dibagian ini pilih yang “skip this step” jika tidak ingin invite user lain ke Slack.
+    ![Branching](./assets/images/9.5.png)
+
+  * Lalu isi nama untuk Channel nya, contoh “Harbor Vuln”.
+    ![Branching](./assets/images/9.6.png)
+
+  * Lalu pilih yang “Start with the limit free version” kalau ingin menggunakan yang gratis.
+    ![Branching](./assets/images/9.7.png)
+
+  * Lalu klik pada titik tiga di kanan atas, lalu klik yang “Edit Settings”.
+    ![Branching](./assets/images/9.8,png)
+
+  * Lalu pilih yang “Integrations”, lalu klik “Add an App”.
+    ![Branching](./assets/images/9.9.png)
+
+  * Lalu klik “Manage Apps…” di bagian kiri atas.
+    ![Branching](./assets/images/9.10.png)
+
+  * Lalu pilih “Build” di kanan atas.
+    ![Branching](./assets/images/9.11.png)
+
+  * Lalu klik “Create an App”.
+    ![Branching](./assets/images/9.12.png)
+
+  * Lalu pilih yang “From scratch” untuk lebih mudah, karena tidak perlu membuat template. Kalau “From a manifest” kita perlu membuat template dengan format “json” atau “YAML”.
+    ![Branching](./assets/images/9.13.png)
+
+  * Lalu isi untuk nama App nya dan pilih Workspace yang sesuai. Lalu klik “Create App”.
+    ![Branching](./assets/images/9.14.png)
+
+  * Lalu setalah selesai membuat app, kita perlu membuat untuk endpoint webhook agar Harbor dapat mengirim ke Slack, dengan pilih “Incoming WebHooks”, lalu aktifkan “Activate Incoming WebHooks”.
+    ![Branching](./assets/images/9.15.png)
+
+  * Lalu scroll kebawah, lalu klik “Add New WebHook to Workspace”.
+    ![Branching](./assets/images/9.16.png)
+
+  * Lalu pilih tempat untuk mengirim pesan dari WebHook nya, bisa ke Channel dari Slack, atau Direct Message ke user tertentu. Contoh misalkan ke channel “harbor-vuln”.
+    ![Branching](./assets/images/9.17.png)
+
+  * Lalu copy link yang sudah di berikan.
+    ![Branching](./assets/images/9.18.png)
+
+  * Lalu login ke Harbor dengan user “admin” dengan password yang sesuai. 
+    ![Branching](./assets/images/9.19.png)
+
+  * Pilih project yang ingin di konfigurasi. Contoh “testing”.
+    ![Branching](./assets/images/9.20.png)
+
+  * Lalu pilih “Webhooks”, lalu klik “+ New WebHook”.
+    ![Branching](./assets/images/9.21.png)
+  * 
 ## 10. Konfigurasi SSH ke semua Node
 
 
