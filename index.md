@@ -81,7 +81,7 @@ layout: default
      ~$ ssh-copy-id user@pod-harbor
      ```
 ## 2. Install Docker pada Node-Harbor Untuk Harbor Registry
-   * Menambahkan repository dari Docker.
+  * Menambahkan repository dari Docker.
     ```
     node-harbor:~$ sudo apt-get update
     node-harbor:~$ sudo apt-get install ca-certificates curl -y
@@ -150,12 +150,12 @@ layout: default
     ```
 ## 5. Konfigurasi Harbor untuk Trigger Scan Trivy saat ada Image yang baru di Push dan mengatur agar user dapat Pull Image dengan tingkat kerentanan yang rendah atau aman.
   * Login ke Harbor dengan user “admin”, lalu masuk ke project yang ingin di konfigurasi.
-    ![Branching](https://guides.github.com/activities/hello-world/branching.png)
+    ![Branching](./assets/images/9.19.png)
     
   * Lalu pilih “Configuration”, kemudian centang pada bagian :
       - “Prevent vulnerable images from running.” Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level “Critical” (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
       - b)	“Vulnerability Scanning”. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
-    ![Branching](https://guides.github.com/activities/hello-world/branching.png)
+    ![Branching](./assets/images/harbor_config.png)
   
 ## 6. Install Kubernetes Cluster
   * Update dan Upgrade packages.
@@ -288,7 +288,7 @@ layout: default
     ![Branching](./assets/images/9.7.png)
 
   * Lalu klik pada titik tiga di kanan atas, lalu klik yang “Edit Settings”.
-    ![Branching](./assets/images/9.8,png)
+    ![Branching](./assets/images/9.8.png)
 
   * Lalu pilih yang “Integrations”, lalu klik “Add an App”.
     ![Branching](./assets/images/9.9.png)
@@ -320,15 +320,23 @@ layout: default
   * Lalu copy link yang sudah di berikan.
     ![Branching](./assets/images/9.18.png)
 
-  * Lalu login ke Harbor dengan user “admin” dengan password yang sesuai. 
+  * Lalu login ke Harbor dengan user “admin” dengan password yang sesuai. Pilih project yang ingin di konfigurasi. Contoh “testing”
     ![Branching](./assets/images/9.19.png)
 
-  * Pilih project yang ingin di konfigurasi. Contoh “testing”.
+  * Lalu pilih “Webhooks”, lalu klik “+ New WebHook”.
     ![Branching](./assets/images/9.20.png)
 
-  * Lalu pilih “Webhooks”, lalu klik “+ New WebHook”.
+  * Lalu isikan data berikut :
+      a.	Nama WebHook.
+      b.	Deskripsi apabila ada.
+      c.	Pada bagian “Notify Type” pilih yang “Slack”.
+      d.	Pada bagian “Event Type” untuk memilih saat apa Harbor mengirim notif ke Slack (Trigger), centang pada bagian:
+              i.	Scanning failed
+              ii.	Scanning stopped
+              iii.	Scanning finished
+      e.	Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
     ![Branching](./assets/images/9.21.png)
-  * 
+    
 ## 10. Konfigurasi SSH ke semua Node
 
 
