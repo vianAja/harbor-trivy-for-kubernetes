@@ -1,8 +1,6 @@
----
-layout: default
----
+# Task
+Perusahaan memiliki cluster kubernetes sebagai teknologi untuk menjalankan aplikasi yang dimiliki. Manajer tim operasional ingin membuat private registry menggunakan harbor untuk menyimpan image yang dimiliki agar tidak bisa diakses publik dan menggunakan tools trivy untuk scanning vulnerability image yang disimpan di private registry.
 
-[Link to another page](./another-page.html).
 # Latar Belakang
 
 Di Era digitalisasi sekarang yang semakin pesat, banyak perusahaan yang memerlukan solusi yang efektif dan handal dalam mengelola aplikasi yang bersifat fleksibel, otomatis serta aman dari kejahatan digital. Serta dengan adanya Cloud Computing menjadikan banyak perusahaan membutuhkan tools yang dapat di jalankan pada environment tersebut. Kubernetes menjadi salah satu tools yang paling banyak diminati oleh beberapa perusahaan, karena kemampuannya dalam mengelola container dalam skala besar.
