@@ -326,14 +326,14 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ![Branching](./assets/images/9.20.png)
 
   * Lalu isikan data berikut :
-      a.	Nama WebHook.
-      b.	Deskripsi apabila ada.
-      c.	Pada bagian “Notify Type” pilih yang “Slack”.
-      d.	Pada bagian “Event Type” untuk memilih saat apa Harbor mengirim notif ke Slack (Trigger), centang pada bagian:
-              i.	Scanning failed
-              ii.	Scanning stopped
-              iii.	Scanning finished
-      e.	Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
+    - Nama WebHook.
+    - Deskripsi apabila ada.
+    - Pada bagian “Notify Type” pilih yang “Slack”.
+    - Pada bagian “Event Type” untuk memilih saat apa Harbor mengirim notif ke Slack (Trigger), centang pada bagian:
+      -	Scanning failed
+      -	Scanning stopped
+      - Scanning finished
+    - Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
     ![Branching](./assets/images/9.21.png)
     
 ## 10. Konfigurasi SSH ke semua Node
