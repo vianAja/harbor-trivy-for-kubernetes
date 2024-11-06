@@ -4,8 +4,11 @@ layout: default
 
 [Link to another page](./another-page.html).
 # Latar Belakang
+
     Di Era digitalisasi sekarang yang semakin pesat, banyak perusahaan yang memerlukan solusi yang efektif dan handal dalam mengelola aplikasi yang bersifat fleksibel, otomatis serta aman dari kejahatan digital. Serta dengan adanya Cloud Computing menjadikan banyak perusahaan membutuhkan tools yang dapat di jalankan pada environment tersebut. Kubernetes menjadi salah satu tools yang paling banyak diminati oleh beberapa perusahaan, karena kemampuannya dalam mengelola container dalam skala besar.
+
     Karena Hal tersebut juga menyebabkan adanya kebutuhan untuk penyimpanan Image private atau biasa disebut sebagai Private Registry agar menjaga keamanan dari perusahaannya, dan juga karena banyak nya kasus terkait pencurian data, menjadikan kebutuhan akan Scanning Vulnerability atau kerentanan menjadi cukup penting. Apalagi di era Cloud dan Containerisasi, Trivy dan Harbor merupakan salah satu solusi terkait dua hal tersebut. Yang dimana harbor sebagai tempat registry dan Trivy untuk scanning otomatis yang di trigger oleh Harbor saat ada event tertentu seperti Ada images yang baru di Push ke Harbor Registry.
+
     Serta dibutuhkan juga Tools untuk mengirim notifikasi secara cepat dan otomatis, sehingga dapat secara cepat juga untuk mengatasi Vulnerability atau kerentanan terhadap Images yang akan di simpan di Harbor, malasah tersebut juga bisa diatasi dengan menggunakan Slack.
 
 # Tools
@@ -256,7 +259,17 @@ layout: default
         -----END PRIVATE KEY-----
     ```
 ## 8. Konfigurasi kubernetes untuk Pull images ke Harbor
-## 9. Konfigurasi SSH ke semua Node
+  * Atur untuk Credentials Harbor registry dengan secret. Yang nantinya akan digunakan saat membuat Pod atau saat Pull Images ke Registry tertentu.
+    ```
+    ~$ kubectl create secret docker-registry <name Secret> \
+        --docker-server=<IP or Domain Registry> \
+        --docker-username=<User> \
+        --docker-password=<Password user> \
+        --docker-email=<email for user>
+    ```
+## 9. Konfigurasi Notifikasi Otomatis dari Hasil Scan Harbor ke Slack
+  * Login ke Website [Slack](https://slack.com/), Buat akun baru jika belum ada.
+  * 
 ## 10. Konfigurasi SSH ke semua Node
 
 
