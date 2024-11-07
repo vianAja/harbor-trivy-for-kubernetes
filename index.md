@@ -53,7 +53,8 @@ SSL merupakan Protocol keamanan yang digunakan untuk mengenkrip si data seperti 
 Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan pengguna untuk mengirim pesan, file dan tools. Slack memiliki 2 metode, yaitu Direct Message (pesan langsung dari satu user ke user lain) dan Channel Group. Dan juga Slack dapat di integrasikan dengan aplikasi atau tools lain juga yang memungkinkan melakukan otomatisasi untuk notifikasi dari suatu aplikasi.
 
 # Langkah Implementasi
-## 1. Konfigurasi SSH ke semua Node
+## 1. Konfigurasi SSH.
+  > **_Note: jalankan pada Semua Node_**
   * Ubah Hostname pada Node agar memudahkan dalam mengidentifikasi Node yang ada.
     ```
     node-master   :~$ sudo hostnamectl set-hostname pod-master
@@ -79,7 +80,8 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
      ~$ ssh-copy-id user@pod-worker02
      ~$ ssh-copy-id user@pod-harbor
      ```
-## 2. Install Docker pada Node-Harbor Untuk Harbor Registry
+## 2. Install Docker Untuk Harbor Registry
+  > **_Note: jalankan pada Node Harbor_**
   * Menambahkan repository dari Docker.
     ```
     node-harbor:~$ sudo apt-get update
@@ -101,6 +103,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     node-harbor:~$ docker version
     ```
 ## 3. Create SSL Certificate untuk Harbor
+  > **_Note: jalankan pada Node Harbor_**
   * Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory **_+“/etc/ssl/harbor/”_**.
     ```
     ~$ echo "subjectAltName=IP:<IP Address Node Harbor>" > harbor.txt
@@ -121,6 +124,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
 
     ```
 ## 4. Install Harbor
+  > **_Note: jalankan pada Node Harbor_**
   * Download Source Code untuk harbor, lalu unzip file source code harbor yang sudah di download.
     ```
     ~$ wget https://github.com/goharbor/harbor/releases/download/v2.10.0/harbor-offline-installer-v2.10.0.tgz
@@ -152,26 +156,27 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ![Branching](./assets/images/9.19.png)
     
   * Lalu pilih **_“Configuration”_**, kemudian centang pada bagian :
-      - **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level “Critical” (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
+      - **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level **_“Critical”_** (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
       - b)	**_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
     ![Branching](./assets/images/harbor_config.png)
     
   
 ## 6. Install Kubernetes Cluster
+  > **_Note: jalankan pada Node Master dan Worker_**
   * Update dan Upgrade packages.
     ```
     ~$ sudo apt update && \
         sudo apt upgrade -y && \
         sudo apt autoremove -y
     ```
-  * Install dependensi dan menambah repository untuk install containerd yang nantinya akan digunakan oleh Kubernetes.
+  * Install dependensi dan menambah repository untuk install containerd.
     ```
     ~$ sudo apt install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
 
     ~$ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/docker.gpg
     ~$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     ```
-  * Install Containerd lalu Config Containerd agar menggunakan system untuk mengelola CGroup Containerd.
+  * Install Containerd lalu Config Containerd.
     ```
     ~$ sudo apt update
     ~$ sudo apt install -y containerd.io
@@ -213,6 +218,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ~$ sudo apt-mark hold kubelet kubeadm kubectl
     ```
   * Initialze untuk membuat Cluster Kubernetes di Master Node.
+  > **_Note: jalankan pada Node Master_**
     ```
     ~$ sudo kubeadm init --pod-network-cidr=10.244.XX.0/16
     ~$ mkdir -p $HOME/.kube
@@ -231,10 +237,12 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ~$ sudo openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
     ```
   * Initialze Node Worker
+  > **_Note: jalankan pada Node Worker_**
     ```
     ~$ sudo kubeadm join --token [TOKEN] [NODE-MASTER]:6443 --discovery-token-ca-cert-hash sha256:[TOKEN-CA-CERT-HASH]
     ```
 ## 7. Configuration SSL Certificate ke Cluster Kubernetes
+  > **_Note: jalankan pada Node Master dan Worker_**
   * Mengatur letak SSL Certificate untuk containerd pada semua Node yang ada di Cluster Kubenetes.
     ```
     ~$ sudo mkdir -p /etc/containerd/certs.d/
@@ -259,6 +267,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
         -----END PRIVATE KEY-----
     ```
 ## 8. Konfigurasi kubernetes untuk Pull images ke Harbor
+  > **_Note: jalankan pada Node Master_**
   * Atur untuk Credentials Harbor registry dengan secret. Yang nantinya akan digunakan saat membuat Pod atau saat Pull Images ke Registry tertentu.
     ```
     ~$ kubectl create secret docker-registry <name Secret> \
@@ -331,12 +340,11 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     - Deskripsi apabila ada.
     - Pada bagian **_“Notify Type”_** pilih yang **_“Slack”_**.
     - Pada bagian **_“Event Type”_** untuk memilih saat apa Harbor mengirim notif ke Slack (Trigger), centang pada bagian:
-      -	Scanning failed
-      -	Scanning stopped
-      - Scanning finished
+      -	**_Scanning failed_**
+      -	**_Scanning stopped_**
+      - **_Scanning finished_**
     - Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
     ![Branching](./assets/images/9.21.png)
-    
     
 ## 10. Konfigurasi SSH ke semua Node
   * Login ke Slack, lalu pergi ke pengaturan App, atau lewat [link ini] (https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya **_“python-harbor”_**.
@@ -380,23 +388,25 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ~$ sudo systemctl status python-slack.service
     ```
 # Hasil
-## Tanpa menggunakan Program Pyhon
+## Tanpa menggunakan Program Pyhon.
 ![Branching](./assets/images/hasil_slack.1.png)
-## Menggunakan Program Python
+## Menggunakan Program Python.
 ![Branching](./assets/images/hasil_slack.2.png)
+## Tidak Bisa Pull Images jika level Vulnerability Critical atau yang lebih tingggi.
+![Branching](./assets/images/failed_pull.png)
 
 # Referensi
-[https://kubernetes.io/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/]
-(https://medium.com/@tanmaybhandge/how-to-deploy-the-harbor-on-vm-using-self-signed-certificate-ebfe29c4803a)
-(https://www.jit.io/resources/appsec-tools/when-and-how-to-use-trivy-to-scan-containers-for-vulnerabilities)
-(https://medium.com/@maheshwar.ramkrushna/scanning-docker-images-for-vulnerabilities-using-trivy-for-effective-security-analysis-fa3e2844db22)
-(https://api.slack.com/messaging/webhooks)
-(https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
-(https://www.docker.com/resources/what-container/)
-(https://www.hostinger.co.id/tutorial/apa-itu-docker)
-(https://goharbor.io/)
-(https://www.nusa.id/apa-itu-slack-yuk-cari-tahu-lebih-jauh-di-sini#:~:text=Apa%20Itu%20Slack%3F,in%20untuk%20tools%20kerja%20lainnya.)
-(https://www.jagoanhosting.com/blog/pengertian-ssl)
-(https://api.slack.com/reference/manifests)
-(https://www.datacamp.com/tutorial/how-to-send-slack-messages-with-python)
-(https://medium.com/@sid2631/automating-slack-notifications-sending-messages-as-a-bot-with-python-2beb6c16cd8)
+[KubeAdm Tools](https://kubernetes.io/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+[Install Harbor](https://medium.com/@tanmaybhandge/how-to-deploy-the-harbor-on-vm-using-self-signed-certificate-ebfe29c4803a)
+[Trivy Scanner](https://www.jit.io/resources/appsec-tools/when-and-how-to-use-trivy-to-scan-containers-for-vulnerabilities)
+[Trivy Scanner](https://medium.com/@maheshwar.ramkrushna/scanning-docker-images-for-vulnerabilities-using-trivy-for-effective-security-analysis-fa3e2844db22)
+[WebHooks Slack](https://api.slack.com/messaging/webhooks)
+[Kubernetes Pull Private Registry](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+[Container](https://www.docker.com/resources/what-container/)
+[Docker](https://www.hostinger.co.id/tutorial/apa-itu-docker)
+[harbor dokumentasi](https://goharbor.io/)
+[Slack](https://www.nusa.id/apa-itu-slack-yuk-cari-tahu-lebih-jauh-di-sini#:~:text=Apa%20Itu%20Slack%3F,in%20untuk%20tools%20kerja%20lainnya.)
+['SSL (Secure Sockets Layer)'](https://www.jagoanhosting.com/blog/pengertian-ssl)
+[Apps Manifest Slack](https://api.slack.com/reference/manifests)
+[Integrasi Python ke Slack](https://www.datacamp.com/tutorial/how-to-send-slack-messages-with-python)
+[Send Messages Python ke Slack](https://medium.com/@sid2631/automating-slack-notifications-sending-messages-as-a-bot-with-python-2beb6c16cd8)
