@@ -61,7 +61,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     node-worker02 :~$ sudo hostnamectl set-hostname pod-worker02
     node-harbor   :~$ sudo hostnamectl set-hostname pod-harbor
     ```
-  * Menambahkan IP dari Node dan Hostname semua Node ke “/etc/hosts” agar dapat di akses dengan menggunakan Hostname yang sudah di konfigurasi.
+  * Menambahkan IP dari Node dan Hostname semua Node ke **_“/etc/hosts”_** agar dapat di akses dengan menggunakan Hostname yang sudah di konfigurasi.
     ```
     ~$ sudo nano /etc/hosts
 
@@ -94,18 +94,18 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     node-harbor:~$ sudo apt-get update
     node-harbor:~$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
     ```
-  * Mengatur agar user “student” atau user biasa (Bukan Root) dapat menggunakan perintah docker
+  * Mengatur agar user **_“student”_** atau user biasa (Bukan Root) dapat menggunakan perintah docker
     ```
     node-harbor:~$ sudo usermod -aG docker $USER
     node-harbor:~$ sudo chmod 666 /var/run/docker.sock
     node-harbor:~$ docker version
     ```
 ## 3. Create SSL Certificate untuk Harbor
-  * Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory “/etc/ssl/harbor/”.
+  * Membuat file Config IP SAN, agar SSL Certificate dapat membaca akses jika melalui IP, dan di simpan di directory **_+“/etc/ssl/harbor/”_**.
     ```
     ~$ echo "subjectAltName=IP:<IP Address Node Harbor>" > harbor.txt
     ```
-  * Membuat Certificate dan Key untuk koneksi https pada Harbor, yang nantinya di simpan di directory “/etc/ssl/harbor/”.
+  * Membuat Certificate dan Key untuk koneksi https pada Harbor, yang nantinya di simpan di directory **_“/etc/ssl/harbor/”_**.
     ```
     ~$ sudo openssl genrsa -out harbor.key 4096
 
@@ -142,19 +142,20 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
 
     harbor_admin_password: <password admin harbor>
     ```
-  * Lalu jalankan script “install.sh” dengan parameter “--with-trivy” untuk secara otomatis integrasi Harbor dengan Trivy. Lalu verifikasi container komponen dari harbor nya berjalan dengan baik tanpa error.
+  * Lalu jalankan script **_“install.sh”_** dengan parameter **_“--with-trivy”_** untuk secara otomatis integrasi Harbor dengan Trivy. Lalu verifikasi container komponen dari harbor nya berjalan dengan baik tanpa error.
     ```
     ~$ sudo ~/harbor/install.sh --with-trivy
     ~$ docker ps -a
     ```
 ## 5. Konfigurasi Harbor untuk Trigger Scan Trivy saat ada Image yang baru di Push dan mengatur agar user dapat Pull Image dengan tingkat kerentanan yang rendah atau aman.
-  * Login ke Harbor dengan user “admin”, lalu masuk ke project yang ingin di konfigurasi.
+  * Login ke Harbor dengan user **_“admin”_**, lalu masuk ke project yang ingin di konfigurasi.
     ![Branching](./assets/images/9.19.png)
     
-  * Lalu pilih “Configuration”, kemudian centang pada bagian :
-      - “Prevent vulnerable images from running.” Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level “Critical” (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
-      - b)	“Vulnerability Scanning”. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
+  * Lalu pilih **_“Configuration”_**, kemudian centang pada bagian :
+      - **_“Prevent vulnerable images from running.”_** Untuk mengatur agar user tidak dapat Pull Images dengan kerentanan yang tinggi. Contohnya di level “Critical” (yang berbahaya sekali) atau yang Levelnya diatasnya lagi.
+      - b)	**_“Vulnerability Scanning”_**. Untuk mengatur agar saat ada Push images akan secara otomatis di scanning.
     ![Branching](./assets/images/harbor_config.png)
+    
   
 ## 6. Install Kubernetes Cluster
   * Update dan Upgrade packages.
@@ -271,88 +272,89 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
     ![Branching](./assets/images/9.1.png)
     ![Branching](./assets/images/9.2.png)
     
-  * Lalu isi nama untuk Company atau Team yang sesuai, contoh “Harbor Vuln Scan”.
+  * Lalu isi nama untuk Company atau Team yang sesuai, contoh **_“Harbor Vuln Scan”_**.
     ![Branching](./assets/images/9.3.png)
 
-  * Nama untuk user sendiri, contoh “Najwan”.
+  * Nama untuk user sendiri, contoh **_“Najwan”_**.
     ![Branching](./assets/images/9.4.png)
 
-  * Dibagian ini pilih yang “skip this step” jika tidak ingin invite user lain ke Slack.
+  * Dibagian ini pilih yang **_“skip this step”_** jika tidak ingin invite user lain ke Slack.
     ![Branching](./assets/images/9.5.png)
 
-  * Lalu isi nama untuk Channel nya, contoh “Harbor Vuln”.
+  * Lalu isi nama untuk Channel nya, contoh **_“Harbor Vuln”_**.
     ![Branching](./assets/images/9.6.png)
 
-  * Lalu pilih yang “Start with the limit free version” kalau ingin menggunakan yang gratis.
+  * Lalu pilih yang **_“Start with the limit free version”_** kalau ingin menggunakan yang gratis.
     ![Branching](./assets/images/9.7.png)
 
-  * Lalu klik pada titik tiga di kanan atas, lalu klik yang “Edit Settings”.
+  * Lalu klik pada titik tiga di kanan atas, lalu klik yang **_“Edit Settings”_**.
     ![Branching](./assets/images/9.8.png)
 
-  * Lalu pilih yang “Integrations”, lalu klik “Add an App”.
+  * Lalu pilih yang **_“Integrations”_**, lalu klik **_“Add an App”_**.
     ![Branching](./assets/images/9.9.png)
 
-  * Lalu klik “Manage Apps…” di bagian kiri atas.
+  * Lalu klik **_“Manage Apps…”_** di bagian kiri atas.
     ![Branching](./assets/images/9.10.png)
 
-  * Lalu pilih “Build” di kanan atas.
+  * Lalu pilih **_“Build”_** di kanan atas.
     ![Branching](./assets/images/9.11.png)
 
-  * Lalu klik “Create an App”.
+  * Lalu klik **_“Create an App”_**.
     ![Branching](./assets/images/9.12.png)
 
-  * Lalu pilih yang “From scratch” untuk lebih mudah, karena tidak perlu membuat template. Kalau “From a manifest” kita perlu membuat template dengan format “json” atau “YAML”.
+  * Lalu pilih yang **_“From scratch”_** untuk lebih mudah, karena tidak perlu membuat template. Kalau **_“From a manifest”_** kita perlu membuat template dengan format **_“json”_** atau **_“YAML”_**.
     ![Branching](./assets/images/9.13.png)
 
-  * Lalu isi untuk nama App nya dan pilih Workspace yang sesuai. Lalu klik “Create App”.
+  * Lalu isi untuk nama App nya dan pilih Workspace yang sesuai. Lalu klik **_“Create App”_**.
     ![Branching](./assets/images/9.14.png)
 
-  * Lalu setalah selesai membuat app, kita perlu membuat untuk endpoint webhook agar Harbor dapat mengirim ke Slack, dengan pilih “Incoming WebHooks”, lalu aktifkan “Activate Incoming WebHooks”.
+  * Lalu setalah selesai membuat app, kita perlu membuat untuk endpoint webhook agar Harbor dapat mengirim ke Slack, dengan pilih **_“Incoming WebHooks”_**, lalu aktifkan **_“Activate Incoming WebHooks”_**.
     ![Branching](./assets/images/9.15.png)
 
-  * Lalu scroll kebawah, lalu klik “Add New WebHook to Workspace”.
+  * Lalu scroll kebawah, lalu klik **_“Add New WebHook to Workspace”_**.
     ![Branching](./assets/images/9.16.png)
 
-  * Lalu pilih tempat untuk mengirim pesan dari WebHook nya, bisa ke Channel dari Slack, atau Direct Message ke user tertentu. Contoh misalkan ke channel “harbor-vuln”.
+  * Lalu pilih tempat untuk mengirim pesan dari WebHook nya, bisa ke Channel dari Slack, atau Direct Message ke user tertentu. Contoh misalkan ke channel **_“harbor-vuln”_**.
     ![Branching](./assets/images/9.17.png)
 
   * Lalu copy link yang sudah di berikan.
     ![Branching](./assets/images/9.18.png)
 
-  * Lalu login ke Harbor dengan user “admin” dengan password yang sesuai. Pilih project yang ingin di konfigurasi. Contoh “testing”
+  * Lalu login ke Harbor dengan user **_“admin”_** dengan password yang sesuai. Pilih project yang ingin di konfigurasi. Contoh **_“testing”_**.
     ![Branching](./assets/images/9.19.png)
 
-  * Lalu pilih “Webhooks”, lalu klik “+ New WebHook”.
+  * Lalu pilih **_“Webhooks”_**, lalu klik **_“+ New WebHook”_**.
     ![Branching](./assets/images/9.20.png)
 
   * Lalu isikan data berikut :
     - Nama WebHook.
     - Deskripsi apabila ada.
-    - Pada bagian “Notify Type” pilih yang “Slack”.
-    - Pada bagian “Event Type” untuk memilih saat apa Harbor mengirim notif ke Slack (Trigger), centang pada bagian:
+    - Pada bagian **_“Notify Type”_** pilih yang **_“Slack”_**.
+    - Pada bagian **_“Event Type”_** untuk memilih saat apa Harbor mengirim notif ke Slack (Trigger), centang pada bagian:
       -	Scanning failed
       -	Scanning stopped
       - Scanning finished
     - Isikan Endpoint URL sesuai dari slack pada step sebelumnya.
     ![Branching](./assets/images/9.21.png)
     
+    
 ## 10. Konfigurasi SSH ke semua Node
-  * Login ke Slack, lalu pergi ke pengaturan App, atau lewat [link ini] (https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya “python-harbor”.
+  * Login ke Slack, lalu pergi ke pengaturan App, atau lewat [link ini] (https://api.slack.com/apps/). Lalu pilih App yang sesuai, contohnya **_“python-harbor”_**.
     ![Branching](./assets/images/10.1.png)
 
-  * lalu pilih yang “OAuth & Permissions”.
+  * lalu pilih yang **_“OAuth & Permissions”_**.
     ![Branching](./assets/images/10.2.png)
 
-  * Lalu Scroll kebawah sampai ke bagian “Scopes”, lalu pilih “Add an QAuth Scope”, lalu pilih yang “chat:write” untuk mengatur role agar dapat menulis pesan atau chat.
+  * Lalu Scroll kebawah sampai ke bagian **_“Scopes”_**, lalu pilih **_“Add an QAuth Scope”_**, lalu pilih yang **_“chat:write”_** untuk mengatur role agar dapat menulis pesan atau chat.
     ![Branching](./assets/images/10.3.png)
 
-  * Lalu Scroll ke atas sampai di bagian “OAuth Tokens”, lalu “Install to Harbor Vuln Scan”.
+  * Lalu Scroll ke atas sampai di bagian **_"OAuth Tokens”_**, lalu **_“Install to Harbor Vuln Scan”_**.
     ![Branching](./assets/images/10.4.png)
-
-  * Lalu pada bagian ini klik “Allow”.
+    
+  * Lalu pada bagian ini klik **_“Allow”_**.
     ![Branching](./assets/images/10.5.png)
 
-  * Lalu Copy “Bot User OAuth Token”.
+  * Lalu Copy **_“Bot User OAuth Token”_**.
     ![Branching](./assets/images/10.6.png)
 
   * Ambil Sample aplikasi sederhana untuk filter data hasil Scanning Trivy dari Harbor dan nanti akan dikirim ke Slack di [github ini](https://github.com/vianAja/python-slack-harbor.git). Lalu sesuaikan untuk data berikut ini.
@@ -380,117 +382,21 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
 # Hasil
 ## Tanpa menggunakan Program Pyhon
 ![Branching](./assets/images/hasil_slack.1.png)
-
 ## Menggunakan Program Python
 ![Branching](./assets/images/hasil_slack.2.png)
 
 # Referensi
-
-
-## Header 2
-
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
-
-### Header 3
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
-
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
-```
-
-#### Header 4
-
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-
-##### Header 5
-
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
-
-###### Header 6
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
-
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```
+(https://kubernetes.io/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+(https://medium.com/@tanmaybhandge/how-to-deploy-the-harbor-on-vm-using-self-signed-certificate-ebfe29c4803a)
+(https://www.jit.io/resources/appsec-tools/when-and-how-to-use-trivy-to-scan-containers-for-vulnerabilities)
+(https://medium.com/@maheshwar.ramkrushna/scanning-docker-images-for-vulnerabilities-using-trivy-for-effective-security-analysis-fa3e2844db22)
+(https://api.slack.com/messaging/webhooks)
+(https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+(https://www.docker.com/resources/what-container/)
+(https://www.hostinger.co.id/tutorial/apa-itu-docker)
+(https://goharbor.io/)
+(https://www.nusa.id/apa-itu-slack-yuk-cari-tahu-lebih-jauh-di-sini#:~:text=Apa%20Itu%20Slack%3F,in%20untuk%20tools%20kerja%20lainnya.)
+(https://www.jagoanhosting.com/blog/pengertian-ssl)
+(https://api.slack.com/reference/manifests)
+(https://www.datacamp.com/tutorial/how-to-send-slack-messages-with-python)
+(https://medium.com/@sid2631/automating-slack-notifications-sending-messages-as-a-bot-with-python-2beb6c16cd8)
