@@ -1,5 +1,6 @@
-# Task
-Perusahaan memiliki cluster kubernetes sebagai teknologi untuk menjalankan aplikasi yang dimiliki. Manajer tim operasional ingin membuat private registry menggunakan harbor untuk menyimpan image yang dimiliki agar tidak bisa diakses publik dan menggunakan tools trivy untuk scanning vulnerability image yang disimpan di private registry.
+Pada Blog ini akan memberikan panduan lengkap dalam memanfaatkan Harbor dan Trivy sebagai solusi keamanan images container yang nantinya akan digunakan di dalam Kubernetes. Dengan Harbor, Anda bisa mengelola private registry yang terstruktur dan aman, sedangkan Trivy membantu mendeteksi kerentanan pada image container, menjaga standar keamanan aplikasi yang Anda gunakan.
+
+Tutorial ini juga menjelaskan cara mengintegrasikan Slack sebagai platform notifikasi, sehingga setiap hasil scan Trivy dapat langsung diinformasikan ke tim secara real-time. Notifikasi ini memungkinkan tim untuk merespons dengan cepat, memastikan langkah mitigasi yang efektif terhadap potensi ancaman.
 
 # Latar Belakang
 
