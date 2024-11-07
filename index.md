@@ -386,7 +386,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
 ![Branching](./assets/images/hasil_slack.2.png)
 
 # Referensi
-(https://kubernetes.io/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+[https://kubernetes.io/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/]
 (https://medium.com/@tanmaybhandge/how-to-deploy-the-harbor-on-vm-using-self-signed-certificate-ebfe29c4803a)
 (https://www.jit.io/resources/appsec-tools/when-and-how-to-use-trivy-to-scan-containers-for-vulnerabilities)
 (https://medium.com/@maheshwar.ramkrushna/scanning-docker-images-for-vulnerabilities-using-trivy-for-effective-security-analysis-fa3e2844db22)
