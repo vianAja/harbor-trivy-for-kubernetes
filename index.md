@@ -55,6 +55,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
 # Langkah Implementasi
 ## 1. Konfigurasi SSH.
   > **_Note: jalankan pada Semua Node_**
+
   * Ubah Hostname pada Node agar memudahkan dalam mengidentifikasi Node yang ada.
     ```
     node-master   :~$ sudo hostnamectl set-hostname pod-master
@@ -82,6 +83,7 @@ Slack adalah tools komunikasi yang digunakan di tempat kerja, yang memungkinkan 
      ```
 ## 2. Install Docker Untuk Harbor Registry
   > **_Note: jalankan pada Node Harbor_**
+
   * Menambahkan repository dari Docker.
     ```
     node-harbor:~$ sudo apt-get update
